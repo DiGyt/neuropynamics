@@ -1,6 +1,34 @@
 from brian2 import NeuronGroup
 
-def create_izhikevich_neuron(Vmax = 35):
+def create_perfect_integrator_neuron(Vmax):
+    """Creates a brian2 NeuronGroup that contains a single perfect integrator neuron"""
+    # Define differential equation for perfect integrator neuron
+    eqs = '''   
+        dvm/dt = I/tau : volt
+        I : volt
+        '''
+    # Define reset function
+    reset = 'vm = {}*mV'.format(Vmax-20)
+    # Define threshold
+    threshold = 'vm > {}*mV'.format(Vmax)
+    # Return NeuronGroup object
+    return NeuronGroup(1, eqs, threshold = threshold, reset = reset, method = 'euler')
+
+def create_lif_neuron(Vmax):
+    """Creates a brian2 NeuronGroup that contains a single leaky integrate-and-fire neuron"""
+    # Define differential equation for leaky integrate-and-fire neuron
+    eqs = '''   
+        dvm/dt = ((El - vm) + I)/tau : volt
+        I : volt
+        '''
+    # Define reset function
+    reset = 'vm = {}*mV'.format(Vmax-20)
+    # Define threshold
+    threshold = 'vm > {}*mV'.format(Vmax)
+    # Return NeuronGroup object
+    return NeuronGroup(1, eqs, threshold = threshold, reset = reset, method = 'euler')
+
+def create_izhikevich_neuron(Vmax):
     """Creates a brian2 NeuronGroup that contains a single izhikevich neuron"""
     # Define differential equation for izhikevich neuron
     eqs = '''   
@@ -18,7 +46,7 @@ def create_izhikevich_neuron(Vmax = 35):
     # Return NeuronGroup object
     return NeuronGroup(1, eqs, threshold = threshold, reset = reset, method = 'euler')
 
-def create_hodgkin_huxley_neuron(Vmax = -40):
+def create_hodgkin_huxley_neuron(Vmax):
     """Creates a brian2 NeuronGroup that contains a single hodgkin-huxley neuron"""    
     # Define differential equation for hodgkin-huxley neuron
     eqs = '''

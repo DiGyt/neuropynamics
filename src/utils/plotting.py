@@ -6,7 +6,7 @@ sns.set()
 sns.set_style({'axes.grid' : False})
 
 # Plotting function
-def create_default_plot(x, neuron_data, neuron_labels, neuron_colors, spikes = None, spike_color = 'steelblue', input_current = None, input_label = 'Input Current', input_color = 'gold', y_range = None, title = '', x_axis_label = '', y_axis_label = '', input_axis_label = 'Input Current (A)', zeroline = True):
+def create_default_plot(x, neuron_data, neuron_labels, neuron_colors, spikes = None, spike_color = 'steelblue', input_current = None, input_label = 'Input Current', input_color = 'gold', y_range = None, title = '', x_axis_label = '', y_axis_label = '', input_axis_label = 'Input Current (A)', hline = None):
     
     # Create first y axis and set size of figure
     fig, ax1 = plt.subplots(figsize=(14,6))
@@ -19,17 +19,19 @@ def create_default_plot(x, neuron_data, neuron_labels, neuron_colors, spikes = N
     if y_range is not None:
         ax1.set_ylim(y_range)
 
-    # Add horizontal 0 line
-    if zeroline:
-        ax1.axhline(y = 0, linestyle = '--', linewidth = 1, color = 'gray')
+    # Add horizontal line
+    if hline is not None:
+        ax1.axhline(y = hline, linestyle = '--', linewidth = 1, color = 'gray', label = 'Spiking Threshold')
 
     # Plot a line for each neuron datapoint
     for idx, y in enumerate(neuron_data):
-        ax1.plot(x, y, color = neuron_colors[idx], label = neuron_labels[idx])
+        # We ignore the first datapoint as these are always 0 and result in weird looking lines
+        ax1.plot(x[1:], y[1:], color = neuron_colors[idx], label = neuron_labels[idx])
 
     # Plot spikes if given
     if spikes is not None:
-        ax1.scatter(spikes[0], spikes[1], color = spike_color, label = 'Spikes')
+        # Also ignore the first spike
+        ax1.scatter(spikes[0][1:], spikes[1][1:], color = spike_color, label = 'Spikes')
 
     # Show input current if given
     if input_current is not None:
