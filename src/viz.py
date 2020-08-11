@@ -39,7 +39,7 @@ def plot_signals(data, times, ch_names, **plotkwargs):
   plt.show()
   
   
-def plot_cmap(data, times, ch_names):
+def plot_cmesh(data, times, ch_names):
   """Show multiple signals in a colormap
 
   data, times = np.array(data), np.array(times)
