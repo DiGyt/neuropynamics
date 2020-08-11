@@ -58,3 +58,31 @@ def plot_cmap(data, times, ch_names):
 
   plt.colorbar()
   plt.show()
+
+
+def plot_spikes(spikes, times, ch_names=None, time_unit=None):
+  """Plot spiking times as given by brian2 spikemonitors."""
+
+  spikes, times = np.array(spikes), np.array(times)
+  max_i = np.max(spikes)
+
+  if ch_names == None:
+    ch_names = np.linspace(max_i, 0, max_i+1).astype(int)
+  else:
+    ch_names = ch_names[::-1]
+
+  if time_unit == None:
+    label_x = "Time"
+  else:
+    label_x = "Time ({})".format(time_unit)
+
+  plt.figure()
+  plt.scatter(times, max_i-spikes, marker=".", color="k", linewidths=0.1)
+  axes = plt.gca()
+  axes.set_yticks(np.linspace(0.5, max_i-0.5, max_i), minor=True)
+  axes.set_yticks(np.linspace(0, max_i, max_i+1))
+  axes.set_yticklabels(ch_names)
+  axes.yaxis.grid(which="minor", alpha=0.4)
+
+  plt.xlabel(label_x)
+  plt.show()
