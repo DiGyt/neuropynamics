@@ -30,8 +30,13 @@ def create_default_plot(x, neuron_data, neuron_labels, neuron_colors, spikes = N
 
     # Plot spikes if given
     if spikes is not None:
-        # Also ignore the first spike
-        ax1.scatter(spikes[0][1:], spikes[1][1:], color = spike_color, label = 'Spikes')
+        # Ignore the first spike if it is before 100ms (as no current was given)
+        if spikes[0] >= 10:
+            ax1.axvline(spikes[0], linestyle = ':', color = spike_color, linewidth = 1, zorder = 0)
+        for t in spikes[1:-1]:
+            ax1.axvline(t, linestyle = ':', color = spike_color, linewidth = 1, zorder = 0)
+        # Add line for last spike with label
+        ax1.axvline(spikes[-1], linestyle = ':', color = spike_color, linewidth = 1, label = 'Spikes', zorder = 0)
 
     # Show input current if given
     if input_current is not None:
