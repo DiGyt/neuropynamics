@@ -86,3 +86,57 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
 
   plt.xlabel(label_x)
   plt.show()
+
+
+def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
+                  color_cycle = ["r", "g", "b", "y"]):
+  """Plot Neural Network Graphs defined by brian2 NeuronGroups and Synapses."""
+
+  def prev_nodes(node_list, n_idx):
+    return np.sum(node_list[:n_idx])
+
+  # define some often used values
+  node_list = [len(neurons) for neurons in neuron_groups]
+  n_groups = len(node_list)
+
+  # add all neurons from the neuron groups to the graph
+  graph = nx.MultiDiGraph()
+  for nodes in node_list:
+    graph.add_nodes_from([1, nodes])
+
+  # go through the synapse, find the matching neuron groups
+  # and create network edges from them
+  for synapses in synapse_groups:
+    for n_idx, group in enumerate(neuron_groups):
+      
+      if synapses.source == group:
+        source_nodes = prev_nodes(node_list, n_idx) + synapses.i
+      if synapses.target == group:
+        target_nodes = prev_nodes(node_list, n_idx) + synapses.j
+
+    edge_list = np.vstack([source_nodes, target_nodes, synapses.delay]).T
+    graph.add_edges_from(edge_list)
+  
+  # draw the different neuron groups as plot, using different colors each time
+  color_map = [color_cycle[idx % len(color_cycle)] for idx in range(n_groups)]
+  pos = pos_func(graph)
+  for idx in range(n_groups):
+    cur_idx = prev_nodes(node_list, idx)
+    nx.draw_networkx_nodes(graph, pos,
+                           nodelist=np.arange(cur_idx, cur_idx + node_list[idx]),
+                           node_color=color_map[idx])
+    
+  # draw the weights to the network graph, based on our synapses
+  ax = plt.gca()
+  for e in graph.edges:
+    ax.annotate("",
+                xy=pos[e[1]], xycoords='data',
+                xytext=pos[e[0]], textcoords='data',
+                arrowprops=dict(arrowstyle="->", color="0.5",
+                                shrinkA=10, shrinkB=10,
+                                patchA=None, patchB=None,
+                                connectionstyle="arc3,rad=rrr".replace('rrr',str(0.05 + 10 * e[2])),),)
+    
+  # plot it
+  plt.axis('off')
+  plt.show()
