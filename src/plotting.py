@@ -26,22 +26,25 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
   plt.show()
 
 
-def plot_signals(data, times, ch_names, time_unit=None, spacing=0.2):
+def plot_signals(data, times, ch_names=None, time_unit=None,
+                 spacing=0.2):
+  
+  data, times = np.array(data), np.array(times)
+  ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
 
   fig = plt.figure()
-
   yprops = dict(rotation=0,
                 horizontalalignment='right',
                 verticalalignment='center',
                 x=-0.01)
   
-  high = np.round(np.mean(np.max(np.array(data), axis=1)), 2)
-  low = np.round(np.mean(np.min(np.array(data), axis=1)), 2)
+  high = np.round(np.mean(np.max(data, axis=1)), 2)
+  low = np.round(np.mean(np.min(data, axis=1)), 2)
   
   axprops = dict(yticks=np.linspace(high + 1/3 * low,
                                     low + 1/3 * high, 3))
   axes = []
-  ax_locs = np.arange(0.1 + spacing * data.shape[0], 0.1, -spacing)
+  ax_locs = np.arange(0.1 + spacing * len(data), 0.1, -spacing)
 
   for ind, channel in enumerate(data):
 
@@ -60,9 +63,11 @@ def plot_signals(data, times, ch_names, time_unit=None, spacing=0.2):
   plt.show()
 
 # TODO: add standard for ch_names
-def plot_cmesh(data, times, ch_names, time_unit=None):
+def plot_cmesh(data, times, ch_names=None,
+               unit="arbitrary unit", time_unit=None):
 
   data, times = np.array(data), np.array(times)
+  ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
 
   plt.figure()
 
@@ -77,7 +82,7 @@ def plot_cmesh(data, times, ch_names, time_unit=None):
   ax.set_yticklabels(labels)
 
   cb = plt.colorbar()
-  cb.set_label("asd") # TODO: add unit
+  cb.set_label(unit)
   plt.show()
 
 
@@ -142,10 +147,9 @@ def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
   # plot it
   plt.axis('off')
   plt.show()
-  
-  
+
+
 def _add_unit_label(dim="Time", unit=None):
-  """Create a (in-)definite unit label for an axis."""
   if unit == None:
     label = dim
   else:
