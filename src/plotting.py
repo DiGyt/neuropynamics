@@ -2,63 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 
-def plot_signals(data, times, ch_names, **plotkwargs):
-  """Show multiple signals in a stacked plot."""
-
-  fig = plt.figure()
-
-  yprops = dict(rotation=0,
-                horizontalalignment='right',
-                verticalalignment='center',
-                x=-0.01)
-  
-  high = np.round(np.mean(np.max(np.array(data), axis=1)), 2)
-  low = np.round(np.mean(np.min(np.array(data), axis=1)), 2)
-  
-  axprops = dict(yticks=np.linspace(high + 0.1 * low, low + 0.1 * high, 3))
-  axes = []
-  step = 0.2
-  ax_locs = np.arange(0.1 + step * data.shape[0], 0.1, -step)
-
-  for ind, channel in enumerate(data):
-
-    axes.append(fig.add_axes([0.1, ax_locs[ind], 0.8, 0.2], **axprops))
-
-    axes[ind].plot(times, channel, **plotkwargs)
-    axes[ind].set_ylabel(ch_names[ind], **yprops)
-    
-    axprops['sharex'] = axes[0]
-    axprops['sharey'] = axes[0]
-
-    # turn off x ticklabels for all but the lower axes
-    if ind != data.shape[0] - 1:
-        plt.setp(ax.get_xticklabels(), visible=False)
-
-  plt.xlabel("Time (seconds)")
-
-  plt.show()
-  
-  
-def plot_cmesh(data, times, ch_names):
-  """Show multiple signals in a colormap."""
-
-  data, times = np.array(data), np.array(times)
-
-  plt.pcolormesh(data[::-1])
-  labels = ch_names[::-1]
-  ax = plt.gca()
-
-  x_idx = np.arange(0, len(times)+1, 100)
-  plt.xticks(x_idx)
-  ax.set_xticklabels(np.round(plt.xticks()[0] * times[1] - times[0], 13))
-  plt.xlabel("Time (seconds)")
-  
-  plt.yticks(np.arange(5)+0.5)
-  ax.set_yticklabels(labels)
-
-  plt.colorbar()
-  plt.show()
-
 
 def plot_spikes(spikes, times, ch_names=None, time_unit=None):
   """Plot spiking times as given by brian2 spikemonitors."""
@@ -71,11 +14,6 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
   else:
     ch_names = ch_names[::-1]
 
-  if time_unit == None:
-    label_x = "Time"
-  else:
-    label_x = "Time ({})".format(time_unit)
-
   plt.figure()
   plt.scatter(times, max_i-spikes, marker=".", color="k", linewidths=0.1)
   axes = plt.gca()
@@ -84,7 +22,62 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
   axes.set_yticklabels(ch_names)
   axes.yaxis.grid(which="minor", alpha=0.4)
 
-  plt.xlabel(label_x)
+  plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
+  plt.show()
+
+
+def plot_signals(data, times, ch_names, time_unit=None, spacing=0.2):
+
+  fig = plt.figure()
+
+  yprops = dict(rotation=0,
+                horizontalalignment='right',
+                verticalalignment='center',
+                x=-0.01)
+  
+  high = np.round(np.mean(np.max(np.array(data), axis=1)), 2)
+  low = np.round(np.mean(np.min(np.array(data), axis=1)), 2)
+  
+  axprops = dict(yticks=np.linspace(high + 1/3 * low,
+                                    low + 1/3 * high, 3))
+  axes = []
+  ax_locs = np.arange(0.1 + spacing * data.shape[0], 0.1, -spacing)
+
+  for ind, channel in enumerate(data):
+
+    axes.append(fig.add_axes([0.1, ax_locs[ind], 0.8, spacing], **axprops))
+
+    axes[ind].plot(times, channel)
+    axes[ind].set_ylabel(ch_names[ind], **yprops)
+    
+    axprops['sharex'] = axes[0]
+    axprops['sharey'] = axes[0]
+
+    if ind != data.shape[0] - 1:
+        plt.setp(axes[ind].get_xticklabels(), visible=False)
+
+  plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
+  plt.show()
+
+# TODO: add standard for ch_names
+def plot_cmesh(data, times, ch_names, time_unit=None):
+
+  data, times = np.array(data), np.array(times)
+
+  plt.figure()
+
+  plt.pcolormesh(data[::-1])
+  labels = ch_names[::-1]
+  ax = plt.gca()
+
+  ax.set_xticklabels(np.round(plt.xticks()[0] * np.mean(times[1:] - times[:-1]), 13))
+  plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
+  
+  plt.yticks(np.arange(data.shape[0])+0.5)
+  ax.set_yticklabels(labels)
+
+  cb = plt.colorbar()
+  cb.set_label("asd") # TODO: add unit
   plt.show()
 
 
@@ -149,3 +142,12 @@ def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
   # plot it
   plt.axis('off')
   plt.show()
+  
+  
+def _add_unit_label(dim="Time", unit=None):
+  """Create a (in-)definite unit label for an axis."""
+  if unit == None:
+    label = dim
+  else:
+    label = "{0} ({1})".format(dim, unit)
+  return label
