@@ -89,7 +89,8 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
 
 
 def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
-                  color_cycle = ["r", "g", "b", "y"], legend=False):
+                  color_cycle = ["r", "g", "b", "y"], legend=False,
+                  node_size=200):
   """Plot Neural Network Graphs defined by brian2 NeuronGroups and Synapses."""
 
   def prev_nodes(node_list, n_idx):
@@ -124,7 +125,7 @@ def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
     cur_idx = prev_nodes(node_list, idx)
     nx.draw_networkx_nodes(graph, pos,
                            nodelist=np.arange(cur_idx, cur_idx + node_list[idx]),
-                           node_color=color_map[idx])
+                           node_color=color_map[idx], node_size=node_size)
     
   # draw the weights to the network graph, based on our synapses
   ax = plt.gca()
