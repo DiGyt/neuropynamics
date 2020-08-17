@@ -89,7 +89,7 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
 
 
 def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
-                  color_cycle = ["r", "g", "b", "y"]):
+                  color_cycle = ["r", "g", "b", "y"], legend=False):
   """Plot Neural Network Graphs defined by brian2 NeuronGroups and Synapses."""
 
   def prev_nodes(node_list, n_idx):
@@ -136,7 +136,15 @@ def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
                                 shrinkA=10, shrinkB=10,
                                 patchA=None, patchB=None,
                                 connectionstyle="arc3,rad=rrr".replace('rrr',str(0.05 + 10 * e[2])),),)
-    
+  
+  # add legend
+  if legend == True:
+    plt.legend([neurons.name for neurons in neuron_groups], 
+               prop={'size': 8})
+  elif isinstance(legend, str):
+    plt.legend([neurons.name for neurons in neuron_groups],
+               prop={'size': 8}, loc=legend)
+
   # plot it
   plt.axis('off')
   plt.show()
