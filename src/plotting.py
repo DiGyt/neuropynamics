@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import networkx
+import networkx as nx
 
 def plot_signals(data, times, ch_names, **plotkwargs):
   """Show multiple signals in a stacked plot."""
