@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def plot_spikes(spikes, times, ch_names=None, time_unit=None):
+def plot_spikes(spikes, times, ch_names=None,
+                time_unit=None, show=True):
   """Plot spiking times as given by brian2 spikemonitors."""
 
   spikes, times = np.array(spikes), np.array(times)
@@ -23,11 +24,13 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
   axes.yaxis.grid(which="minor", alpha=0.4)
 
   plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
-  plt.show()
+  
+  if show:
+    plt.show()
 
 
 def plot_signals(data, times, ch_names=None, time_unit=None,
-                 spacing=0.2):
+                 spacing=0.2, show=True):
   
   data, times = np.array(data), np.array(times)
   ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
@@ -60,11 +63,13 @@ def plot_signals(data, times, ch_names=None, time_unit=None,
         plt.setp(axes[ind].get_xticklabels(), visible=False)
 
   plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
-  plt.show()
+  
+  if show:
+    plt.show()
 
   
 def plot_cmesh(data, times, ch_names=None,
-               unit="arbitrary unit", time_unit=None):
+               unit="arbitrary unit", time_unit=None, show=True):
 
   data, times = np.array(data), np.array(times)
   ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
@@ -83,12 +88,14 @@ def plot_cmesh(data, times, ch_names=None,
 
   cb = plt.colorbar()
   cb.set_label(unit)
-  plt.show()
+  
+  if show:
+    plt.show()
 
 
 def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
                   color_cycle = ["r", "g", "b", "y"], legend=False,
-                  node_size=200):
+                  node_size=200, show=True):
   """Plot Neural Network Graphs defined by brian2 NeuronGroups and Synapses."""
 
   def prev_nodes(node_list, n_idx):
@@ -146,7 +153,9 @@ def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
 
   # plot it
   plt.axis('off')
-  plt.show()
+  
+  if show:
+    plt.show()
 
 
 def _add_unit_label(dim="Time", unit=None):
