@@ -82,7 +82,7 @@ def plot_cmesh(data, times, ch_names=None,
   
   # set x tick labels
   idx = [i for i in np.arange(len(times)) if i in plt.xticks()[0]]
-  plt.xticks(idx, [times[i] for i in idx])
+  plt.xticks(idx, np.round([times[i] for i in idx], 9))
   plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
   
   # set y tick labels
