@@ -32,7 +32,7 @@ def plot_signals(data, times, ch_names=None, time_unit=None,
   data, times = np.array(data), np.array(times)
   ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
 
-  fig = plt.figure()
+  #fig = plt.figure()
   yprops = dict(rotation=0,
                 horizontalalignment='right',
                 verticalalignment='center',
@@ -62,14 +62,14 @@ def plot_signals(data, times, ch_names=None, time_unit=None,
   plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
   plt.show()
 
-# TODO: add standard for ch_names
+  
 def plot_cmesh(data, times, ch_names=None,
                unit="arbitrary unit", time_unit=None):
 
   data, times = np.array(data), np.array(times)
   ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
 
-  plt.figure()
+  #plt.figure()
 
   plt.pcolormesh(data[::-1])
   labels = ch_names[::-1]
