@@ -80,7 +80,7 @@ def plot_cmesh(data, times, ch_names=None,
   labels = ch_names[::-1]
   ax = plt.gca()
 
-  ax.set_xticklabels(np.round(plt.xticks()[0] * np.mean(times[1:] - times[:-1]), 13))
+  #ax.set_xticklabels(np.round(plt.xticks()[0] * np.mean(times[1:] - times[:-1]), 13))
   plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
   
   plt.yticks(np.arange(data.shape[0])+0.5)
