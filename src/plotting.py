@@ -14,7 +14,7 @@ def plot_spikes(spikes, times, ch_names=None, time_unit=None):
   else:
     ch_names = ch_names[::-1]
 
-  plt.figure()
+  #plt.figure()
   plt.scatter(times, max_i-spikes, marker=".", color="k", linewidths=0.1)
   axes = plt.gca()
   axes.set_yticks(np.linspace(0.5, max_i-0.5, max_i), minor=True)
@@ -32,7 +32,7 @@ def plot_signals(data, times, ch_names=None, time_unit=None,
   data, times = np.array(data), np.array(times)
   ch_names = np.arange(0, len(data), dtype=int) if ch_names is None else ch_names
 
-  #fig = plt.figure()
+  fig = plt.figure()
   yprops = dict(rotation=0,
                 horizontalalignment='right',
                 verticalalignment='center',
