@@ -79,10 +79,13 @@ def plot_cmesh(data, times, ch_names=None,
   plt.pcolormesh(data[::-1])
   labels = ch_names[::-1]
   ax = plt.gca()
-
-  #ax.set_xticklabels(np.round(plt.xticks()[0] * np.mean(times[1:] - times[:-1]), 13))
+  
+  # set x tick labels
+  idx = [i for i in np.arange(len(times)) if i in plt.xticks()[0]]
+  plt.xticks(idx, [times[i] for i in idx])
   plt.xlabel(_add_unit_label(dim="Time", unit=time_unit))
   
+  # set y tick labels
   plt.yticks(np.arange(data.shape[0])+0.5)
   ax.set_yticklabels(labels)
 
