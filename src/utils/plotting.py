@@ -6,11 +6,12 @@ import numpy as np
 import networkx as nx
 
 
-def plot_spikes(spikes, times, ch_names=None, time_unit=None, show=True):
+def plot_spikes(spikes, times, neurongroup=None, ch_names=None,
+                time_unit=None, show=True):
     """Plot spiking times as given by brian2 spikemonitors."""
 
     spikes, times = np.array(spikes), np.array(times)
-    max_i = np.max(spikes)
+    max_i = np.max(spikes) if neurongroup is None else len(neurongroup)
 
     if ch_names == None:
         ch_names = np.linspace(max_i, 0, max_i+1).astype(int)
