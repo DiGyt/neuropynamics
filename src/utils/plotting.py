@@ -21,7 +21,7 @@ def create_default_plot(x, neuron_data, neuron_labels, neuron_colors, spikes = N
 
     # Add horizontal line
     if hline is not None:
-        ax1.axhline(y = hline, linestyle = '--', linewidth = 1, color = 'gray', label = 'Spiking Threshold')
+        ax1.axhline(y = hline, linestyle = '--', linewidth = 1, color = 'gray', label = 'Spike Cutoff')
 
     # Plot a line for each neuron datapoint
     for idx, y in enumerate(neuron_data):
@@ -29,7 +29,7 @@ def create_default_plot(x, neuron_data, neuron_labels, neuron_colors, spikes = N
         ax1.plot(x[1:], y[1:], color = neuron_colors[idx], label = neuron_labels[idx])
 
     # Plot spikes if given
-    if spikes is not None:
+    if spikes is not None and len(spikes) > 0:
         # Ignore the first spike if it is before 100ms (as no current was given)
         if spikes[0] >= 10:
             ax1.axvline(spikes[0], linestyle = ':', color = spike_color, linewidth = 1, zorder = 0)
