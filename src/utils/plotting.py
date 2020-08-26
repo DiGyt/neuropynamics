@@ -11,7 +11,7 @@ def plot_spikes(spikes, times, neurongroup=None, ch_names=None,
     """Plot spiking times as given by brian2 spikemonitors."""
 
     spikes, times = np.array(spikes), np.array(times)
-    max_i = np.max(spikes) if neurongroup is None else len(neurongroup)
+    max_i = np.max(spikes) if neurongroup is None else len(neurongroup) - 1
 
     if ch_names == None:
         ch_names = np.linspace(max_i, 0, max_i+1).astype(int)
