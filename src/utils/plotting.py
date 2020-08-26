@@ -361,3 +361,4 @@ def plot_single_neuron(x, neuron_data, neuron_labels, neuron_colors, spikes = No
 
             # Set title
             plt.title(title)
+

@@ -42,6 +42,6 @@ def system(initialx, initialy, func1, func2, delta, timerange):
     
     for i in range(timerange):
         x.append(x[i] + func1(x[i], y[i]) * delta)
-        y.append(y[i] + func2(x[i], y[i]) * delta)
-    
+        y.append(y[i] + func2(x[i], y[i]) * delta)    
+
     return x, y
