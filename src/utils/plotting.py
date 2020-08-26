@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-# Imports for graph network representation
+
+# Imports for multineuron plots
+import numpy as np
 import networkx as nx
 
 
