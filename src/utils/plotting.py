@@ -14,15 +14,15 @@ from ipywidgets import widgets
 from IPython.display import clear_output, display, HTML
 
 # Plotting function for a dynamical system with two expressions
-def plot_dynamical_system(expr1, expr2, x, y, start_x, end_x, start_y, end_y, stepsize, numsteps):
+def plot_dynamical_system(expr1, expr2, x, y, start_x, end_x, start_y, end_y, stepsize = 0.1, numsteps = 10):
     '''
         expr1: sympy expression - non linear ode
         expr2: sympy expression - non linear ode
         x: sympy variable used in expr1 and/or expr2
         y: sympy variable used in expr1 and/or expr2
-        start_x: starting value for the x range we work in (also used as starting value for range-kutta4)
+        start_x: starting value for the x range we work in (also used as starting value for runge-kutta4)
         end_x: ending value for the x range we work in
-        start_y: starting value for the y range we work in (also used as starting value for range-kutta4)
+        start_y: starting value for the y range we work in (also used as starting value for runge-kutta4)
         end_y: ending value for the y range we work in
         stepsize: step size for runge-kutta4
         numsteps: the number of steps runge-kutta4 should take
@@ -30,15 +30,6 @@ def plot_dynamical_system(expr1, expr2, x, y, start_x, end_x, start_y, end_y, st
     # converting the equations to functions
     f1 = lambdify((x, y), expr1)
     f2 = lambdify((x, y), expr2)
-    
-    # phase space
-    sx, sy = system(start_x, start_y, f1, f2, stepsize, numsteps)
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10,10))
-    ax1.plot(sx, label='X in Time')
-    ax1.plot(sy, label='Y in Time')
-    ax2.plot(sx, sy, label='X against Y')
-    ax1.legend()
-    ax2.legend()
     
     # compute ranges to work in    
     xrange = np.linspace(start_x, end_x)
@@ -70,52 +61,7 @@ def plot_dynamical_system(expr1, expr2, x, y, start_x, end_x, start_y, end_y, st
     q = ax.quiver(xrange, yrange, f1_val, f2_val, alpha=.5)
     
     # solve analytically using sympy
-    solutions = solve((Eq(expr1, 0), Eq(expr2, 0)), x, y)
-    
-    # compute jacobian and eigen values
-    equationMatrix = Matrix([ expr1, expr2 ])
-    varMat = Matrix([ x, y ])
-    jacobian = equationMatrix.jacobian(varMat)
-    display(HTML('''<h2>Jacobian Matrix</h2> <br /> The Jacobian matrix has single order derivatives
-                    of a System of Equations.</h2>'''))
-    display(jacobian)
-    
-    # display eigen values
-    display(HTML('<br /> <br /> <br /> <h2>Eigen Values</h2> <br /> <img src="2d-stability.png" />'))
-    op = '''<table>
-                     <th>
-                         <td>Stable Point</td>
-                         <td>Eigen Values</td>
-                         <td>Type of Stability Point</td>
-                     </th>'''
-    for s in solutions:
-        eqmat = jacobian.subs([ (x, s[0]), (y, s[1]) ])
-        ev = list(eqmat.eigenvals().keys())
-        
-        if ev[0].is_real:
-            if ev[0] > 0 and ev[1] > 0:
-                t = 'Unstable Node'
-            elif ev[0] < 0 and ev[1] < 0:
-                t = 'Stable Node'
-            elif (ev[0] < 0 and ev[1] > 0) or (ev[0] > 0 and ev[1] < 0):
-                t = 'Saddle Point'
-        else:
-            if ev[0].args[0] > 0:
-                t = 'Unstable Focus'
-            if ev[0].args[0] < 0:
-                t = 'Stable Focus'
-        
-        op = op + '''<tr>
-                            <td>%s</td>
-                            <td>%s, %s</td>
-                            <td>%s</td>
-                        </tr>''' % (str(s), ev[0], ev[1], t)
-    op = op + '</table>'
-    display(HTML(op))
-    
-    display(HTML('''<br /> <br /> <br /> <h2>Phase Potrait</h2> <br />
-                 Phase Potrait shows the change in the two quantities with respect to each other
-                 and idependantly.<br />'''))
+    solutions = solve((Eq(expr1, 0), Eq(expr2, 0)), x, y)   
     
     # plot the analytical solution
     try:
@@ -131,14 +77,7 @@ def plot_dynamical_system(expr1, expr2, x, y, start_x, end_x, start_y, end_y, st
         [ax.scatter(i[0], i[1], marker='x', label='Stable Point', s=150) for i in solutions]
     except:
         print('Some roots are complex')
-
-    # a legend for our plot
-    display(HTML('''<h2>Quiver Plot and Null Clines</h2><br />
-                    A quiver plot shows the direction the system is moving in at each co-ordinate. <br />
-                    Null Clines are lines where one of the two variables are zero. The Points 
-                    where Null Clines intersect are where the system is stable because both variables are 
-                    zero at that point.<br />
-                    Null Clines can be obtained analytically (using calculus) and numerically.'''))
+   
     fig.legend(framealpha=1, fancybox=True, fontsize='large', loc=1)
     fig.show()
 
