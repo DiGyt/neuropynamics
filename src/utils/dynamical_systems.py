@@ -17,7 +17,7 @@ def rk4( f, x0, y0, h, xn ):
         
     return y, x
 
-def plotEquation(eq, solvar, plotvar, inputrange):
+def plot_equation(eq, solvar, plotvar, inputrange):
     '''
         Given a sympy equation object `eq`, this function return a series of values,
         in the range of `inputrange` such that the equation is solved for
@@ -32,7 +32,7 @@ def plotEquation(eq, solvar, plotvar, inputrange):
 
     return vals
 
-def findFixedPoints(f, g, xrange, yrange):
+def find_fixed_points(f, g, xrange, yrange):
     return [(x, y) for x in xrange for y in yrange if f(x, y) == 0 and g(x, y) == 0]
 
 
