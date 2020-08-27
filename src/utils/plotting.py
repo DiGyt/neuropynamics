@@ -103,7 +103,7 @@ def plot_cmesh(data, times, ch_names=None,
 
 def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
                   color_cycle=["r", "g", "b", "y"], legend=False,
-                  node_size=200, show=True):
+                  node_size=200, show=True, bend_factor=1.):
     """Plot Neural Network Graphs defined by brian2 NeuronGroups and Synapses."""
 
     def prev_nodes(node_list, n_idx):
@@ -151,7 +151,7 @@ def plot_synapses(neuron_groups, synapse_groups, pos_func=nx.circular_layout,
                     arrowprops=dict(arrowstyle="->", color="0.5",
                                     shrinkA=10, shrinkB=10,
                                     patchA=None, patchB=None,
-                                    connectionstyle="arc3,rad=rrr".replace('rrr', str(0.05 + 10 * e[2])),),)
+                                    connectionstyle="arc3,rad=rrr".replace('rrr', str(bend_factor * 10 * e[2])),),)
 
     # add legend
     if legend == True:
