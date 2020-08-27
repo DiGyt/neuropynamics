@@ -14,7 +14,7 @@ In this notebook you can interactively examine the spiking and reset behavior of
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/Single_neurons.ipynb)
 
 
-### Dendritic computation
+### Dendritic computation [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/dendritic_computation.ipynb)
 
 ### Multi-neuron networks
 
