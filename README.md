@@ -17,19 +17,19 @@ In this notebook you can interactively examine the spiking and reset behavior of
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/multineuron_networks.ipynb)
 
+In this notebook, you will learn how to build multineuron networks with brian2 and visualize them using our neuropynamics plotting functions.
+
 ### Dendritic computation
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/dendritic_computation.ipynb)
+
+Learn what difference dendritic computation can make in the localization of a sound stimulus and see how it changes depending on the timing of sound reaching the left ear and right ear.
 
 ### Bifurcation and chaotic behavior
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/bifurcation.ipynb)
 
+Investigate complex and chaotic behavior resulting from the interaction of different parameters in different neuron models.
+
+
 ### Examining dynamical systems
-
-## Contact information
-Lucas Feldmann: lucfeldmann23@googlemail.com
-
-Dirk Gütlin
-
-Hunaid Hameed
