@@ -8,17 +8,22 @@ Each topic is presented as a Jupyter Notebook that should be run within Google C
 
 ### Single neurons
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/Single_neurons.ipynb)
+
 We suggest you start your journey with this notebook as it introduces you to the brian2 toolbox that will be used throughout our examples. 
 In this notebook you can interactively examine the spiking and reset behavior of different types of single neurons. We will show the equations for the underlying dynamical systems for the neuron models and implement them using brian2. 
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/Single_neurons.ipynb)
+### Multi-neuron networks
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/multineuron_networks.ipynb)
 
-### Dendritic computation [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/dendritic_computation.ipynb)
+### Dendritic computation
 
-### Multi-neuron networks [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/multineuron_networks.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/dendritic_computation.ipynb)
 
-### Bifurcation [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/bifurcation.ipynb)
+### Bifurcation and chaotic behavior
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/bifurcation.ipynb)
 
 ### Examining dynamical systems
 
