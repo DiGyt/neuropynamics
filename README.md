@@ -44,7 +44,7 @@ Investigate complex and chaotic behavior resulting from the interaction of diffe
 ### Stability Analysis - Examining Dynamical Systems
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/pplane.ipynb)
 
-Stability analysis is widely done in a [Java based software](https://www.cs.unm.edu/~joel/dfield/). We have implemented it as a Python notebook. The notebook provides a clean interface to plug in all the parameters for Non Linear Ordinary Differential Equations. The code is clean and reuable. It can be extended to include more types of differential equations and controls over the plotting.
+Stability analysis is widely done in a [Java based software](https://www.cs.unm.edu/~joel/dfield/). We have implemented it as a Python notebook. The notebook provides a clean interface to plug in all the parameters for Non-Linear Ordinary Differential Equations. The code is clean and reusable. It can be extended to include more types of differential equations and controls over the plotting.
 
 
 ---
