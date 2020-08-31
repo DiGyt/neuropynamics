@@ -17,6 +17,13 @@ In this notebook you can interactively examine the spiking and reset behavior of
 
 ---
 
+### Stability analysis for different neuron models
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/Stability_analysis.ipynb)
+
+Expanding on the notebook above, this one provides an introduction to stability analysis of 1D and 2D dynamical systems.
+
+---
+
 ### Multi-neuron networks
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/multineuron_networks.ipynb)
@@ -38,12 +45,6 @@ Learn what difference dendritic computation can make in the localization of a so
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DiGyt/neuropynamics/blob/master/notebooks/bifurcation.ipynb)
 
 Investigate complex and chaotic behavior resulting from the interaction of different parameters in different neuron models.
-
----
-
-### Stability Analysis for different neuron models
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](  )
-
 
 ---
 
